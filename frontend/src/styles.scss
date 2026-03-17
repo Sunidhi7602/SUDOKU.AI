@@ -1,0 +1,28 @@
+:root {
+  --bg:           #0a0a0f;
+  --surface:      #111118;
+  --surface2:     #1a1a26;
+  --border:       #2a2a40;
+  --accent:       #7c3aed;
+  --accent2:      #06b6d4;
+  --accent3:      #f59e0b;
+  --text:         #e2e8f0;
+  --text-muted:   #64748b;
+  --success:      #10b981;
+  --error:        #ef4444;
+  --given-bg:     #1e1b3a;
+  --given-text:   #a78bfa;
+  --solved-text:  #67e8f9;
+  --cell-size:    clamp(40px, 6vw, 52px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }

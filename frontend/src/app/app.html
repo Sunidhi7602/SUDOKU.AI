@@ -1,0 +1,105 @@
+<div class="app-wrapper">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="/sudoku.svg" alt="Sudoku Logo" class="logo-icon">
+        <span class="logo-text">SUDOKU<span class="logo-ai">.AI</span></span>
+      </div>
+      <div class="header-meta">
+        <span class="algo-badge">AC-3 + Backtracking</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Left: Controls -->
+    <aside class="sidebar">
+      <div class="card">
+        <h2 class="card-title">Load Sample</h2>
+        <div class="sample-btns">
+          <button class="btn btn-sample" (click)="loadSample('easy')">Easy</button>
+          <button class="btn btn-sample" (click)="loadSample('medium')">Medium</button>
+          <button class="btn btn-sample" (click)="loadSample('hard')">Hard</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Actions</h2>
+        <div class="action-buttons">
+          <button class="btn btn-primary" (click)="solvePuzzle()" [disabled]="loading">
+            <span *ngIf="!loading">▶ Solve Puzzle</span>
+            <span *ngIf="loading" class="loader-text">Solving…</span>
+          </button>
+          <div class="secondary-buttons">
+            <button class="btn btn-secondary" (click)="clearBoard()">✕ Clear Board</button>
+            <button class="btn btn-secondary" (click)="resetToOriginal()" [disabled]="!hasSolution">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="card stats-card" *ngIf="stats">
+        <h2 class="card-title">Result</h2>
+        <div class="stat-row">
+          <span class="stat-label">Algorithm</span>
+          <span class="stat-value algo">AC-3 + MRV</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Difficulty</span>
+          <span class="stat-value" [class]="'diff-' + stats.difficulty?.toLowerCase()">{{ stats.difficulty }}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Solved in</span>
+          <span class="stat-value time">{{ stats.solve_time_ms }} ms</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Verified</span>
+          <span class="stat-value" [style.color]="stats.verified ? 'var(--success)' : 'var(--error)'">
+            {{ stats.verified ? '✓ Valid' : '✗ Error' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="card error-card" *ngIf="errorMsg">
+        <p class="error-text">⚠ {{ errorMsg }}</p>
+      </div>
+    </aside>
+
+    <!-- Right: Board -->
+    <section class="board-section">
+      <div class="board-container" [class.solved]="hasSolution">
+        <div class="sudoku-grid">
+          <ng-container *ngFor="let row of displayGrid; let r = index">
+            <div *ngFor="let cell of row; let c = index"
+                 class="cell"
+                 [class.given]="isGiven(r, c)"
+                 [class.solved-cell]="!isGiven(r, c) && hasSolution && cell !== 0"
+                 [class.selected]="selectedCell?.r === r && selectedCell?.c === c"
+                 [class.box-right]="(c+1) % 3 === 0 && c !== 8"
+                 [class.box-bottom]="(r+1) % 3 === 0 && r !== 8"
+                 [class.error-cell]="hasConflict(r, c)"
+                 (click)="selectCell(r, c)">
+              <span *ngIf="cell !== 0">{{ cell }}</span>
+              <span *ngIf="cell === 0 && selectedCell?.r === r && selectedCell?.c === c" class="cursor">|</span>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- Number pad -->
+        <div class="numpad">
+          <button *ngFor="let n of [1,2,3,4,5,6,7,8,9]"
+                  class="numpad-btn"
+                  (click)="inputDigit(n)">{{ n }}</button>
+          <button class="numpad-btn clear-btn" (click)="inputDigit(0)">✕</button>
+        </div>
+      </div>
+
+      <p class="hint">Click a cell then press a number key, or use the numpad below.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Constraint Propagation (AC-3) &amp; Backtracking with MRV Heuristic · Built with Python Flask + Angular</p>
+  </footer>
+</div>

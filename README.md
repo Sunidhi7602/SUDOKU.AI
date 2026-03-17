@@ -1,3 +1,5 @@
+🌐 Live Demo: https://sudoku-ai-frontend.onrender.com
+
 # 🧩 AI-Based Sudoku Solver
 
 > Intelligent Sudoku solving using **Constraint Propagation (AC-3)** + **Backtracking with MRV Heuristic**

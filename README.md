@@ -169,8 +169,7 @@ sudoku-solver-ai/
 
 ## 👩‍💻 Author
 
-**Sunidhi** · Dept. of Computer Applications, PES University, Bengaluru
-Under the guidance of **Dr. C. Meenaka**
+**Sunidhi Jagadish Chandra** ·
 
 ---
 MIT License

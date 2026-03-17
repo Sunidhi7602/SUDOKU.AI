@@ -14,7 +14,7 @@ const EMPTY_GRID = (): number[][] =>
   styleUrls: ['./app.scss']
 })
 export class App implements OnInit {
-  private API = 'http://localhost:5000/api';
+  private API = 'https://sudoku-ai-0a1.onrender.com/api';
 
   displayGrid: number[][] = EMPTY_GRID();
   originalGrid: number[][] = EMPTY_GRID();
